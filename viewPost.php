@@ -57,10 +57,10 @@ require_once("partial/header.php");
 				</div>
 			</div>
 			<?php
-			foreach ($action->comments as $v) {
+			foreach ($action->allComments as $comment) {
 
-				$subcomments=$action->getSubComments($v["comment_id"]);
-				$commentCreator = $action->getUserByID($v["comment_creator"]);
+				$allSubcomments=$action->getSubComments($comment["comment_id"]);
+				$commentCreator = $action->getUserByID($comment["comment_creator"]);
 				?>
 				<div class="row ">
 					<div class="media "><div class="col">
@@ -70,19 +70,19 @@ require_once("partial/header.php");
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<strong><?=$commentCreator["user_name"]?></strong> <span class="text-muted">commented on <?=$v["comment_creation_time"]?></span>
+							<strong><?=$commentCreator["user_name"]?></strong> <span class="text-muted">commented on <?=$comment["comment_creation_time"]?></span>
 
 						</div>
 						<div class="media-body">
 
-							<?=$v["comment_content"]?>
+							<?=$comment["comment_content"]?>
 							<div class="col secondaryLikes">
-								<button type="button" class="btn btn-primary btn-sm "><i class="fa fa-thumbs-up "></i>Like | <?=$v["comment_nb_likes"]?></button>
+								<button type="button" class="btn btn-primary btn-sm "><i class="fa fa-thumbs-up "></i>Like | <?=$comment["comment_nb_likes"]?></button>
 								<button type="button" class="btn btn-secondary btn-sm "><i class="fa fa-thumbs-down "></i> </button>
 							</div>	
 							<?php 
-							foreach ($subcomments as $subC) {
-								$subCommentCreator = $action->getUserByID($subC["comment_creator"]);
+							foreach ($allSubcomments as $subComment) {
+								$subCommentCreator = $action->getUserByID($subComment["comment_creator"]);
 								?>
 
 								<div class="row">
@@ -90,13 +90,13 @@ require_once("partial/header.php");
 										<img class="d-flex mr-3" src="images/captain.png" alt="Generic placeholder image">
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<strong><?=$subCommentCreator["user_name"]?></strong> <span class="text-muted">commented on <?=$subC["comment_creation_time"]?></span>
+												<strong><?=$subCommentCreator["user_name"]?></strong> <span class="text-muted">commented on <?=$subComment["comment_creation_time"]?></span>
 											</div>
 											<div class="media-body">
-												<?=$subC["comment_content"]?>
+												<?=$subComment["comment_content"]?>
 
 												<div class="col secondaryLikes">
-													<button type="button" class="btn btn-primary btn-sm "><i class="fa fa-thumbs-up "></i>Like | <?=$subC["comment_nb_likes"]?></button>
+													<button type="button" class="btn btn-primary btn-sm "><i class="fa fa-thumbs-up "></i>Like | <?=$subComment["comment_nb_likes"]?></button>
 													<button type="button" class="btn btn-secondary btn-sm "><i class="fa fa-thumbs-down "></i> </button>
 												</div>	
 											</div>
@@ -112,7 +112,7 @@ require_once("partial/header.php");
 									<img class="align-self-center mr-3 user-icon" src="images/captain.png" alt="Generic placeholder image">
 								</div>
 								<form class="form col" action="commentDBA.php" method="post">
-									<input type="hidden" name="parent_id" value="<?=$v["comment_id"]?>"></input>
+									<input type="hidden" name="parent_id" value="<?=$comment["comment_id"]?>"></input>
     								<div class="form-group ">
 										<label for="commentContent"></label>
 										<textarea class="form-control" name="commentContent" rows="3" placeholder="Write comments..."></textarea>

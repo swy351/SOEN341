@@ -5,6 +5,9 @@ require_once("dba/MySQLrequests.php");
 
 class postTableAction extends commonAction{
 
+	const NB_POSTS_TO_GET = 10;
+	const WHERE_TO_START_GETTING_POSTS = 0;
+
 	public function __construct() {
 		parent::__construct(commonAction::$VISIBILITY_PUBLIC);
 	}
@@ -15,7 +18,7 @@ class postTableAction extends commonAction{
 			header("location:viewPost.php");}
 
 
-			$this->posts=MySQLrequests::getLastPosts(10,0);
+			$this->posts=MySQLrequests::getLastPosts(self::NB_POSTS_TO_GET,self::WHERE_TO_START_GETTING_POSTS);
 	}
 
 	public function getUserByID($id){

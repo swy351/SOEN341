@@ -13,18 +13,17 @@ class postQuestionAction extends commonAction {
 		if (commonAction::isLoggedIn()) {
 			
 
-			$a=$_POST['questiontopic']; 
-			$b=$_POST['content'];
-			$name = $_SESSION["user_id"];
+			$postTitle=$_POST['questiontopic']; 
+			$postContent=$_POST['content'];
+			$creatorID = $_SESSION["user_id"];
 			if (isset($a) && isset($b)){
 
 				$connection=connection::getConnection();
 
 				$statement = $connection->prepare("INSERT INTO post(post_title, post_content, post_creator) VALUES(?,?,?)");
 
-				$statement->bindParam(1, $a);
-				$statement->bindParam(2, $b);
-				$statement->bindParam(3, $name);
+				$statement->bindParam(2, $postContent);
+				$statement->bindParam(3, $creatorID);
 
 				$statement->setFetchMode(PDO::FETCH_ASSOC);
 				$statement->execute();

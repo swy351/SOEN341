@@ -16,7 +16,7 @@ class viewPostAction extends commonAction{
 
 			$this->post=MySQLrequests::getPostbyID($id);
 			$this->postCreator=MySQLrequests::getPostCreatorByPostID($id);
-			$this->comments=MySQLrequests::getCommentsByPostID($id);
+			$this->allComments=MySQLrequests::getCommentsByPostID($id);
 
 		}
 		else{
